@@ -1,0 +1,17 @@
+route:
+  receiver: agent-py-local
+  group_by: [alertname, service]
+  group_wait: 1s
+  group_interval: 5s
+  repeat_interval: 1m
+
+receivers:
+  - name: agent-py-local
+    webhook_configs:
+      - url: http://127.0.0.1:8000/aiops/alerts/webhooks/local-alertmanager
+        send_resolved: true
+        max_alerts: 20
+        http_config:
+          authorization:
+            type: Bearer
+            credentials_file: /path/to/local-agent-py-webhook-token

@@ -1,0 +1,10 @@
+groups:
+  - name: local-tts-demo
+    interval: 2s
+    rules:
+      - alert: LocalTtsLatencyHigh
+        expr: max without (phase) (agent_py_tts_phase_milliseconds{environment="test"}) > 80
+        labels:
+          severity: warning
+        annotations:
+          summary: 本地 TTS 测试请求的阶段耗时超过 80 毫秒
